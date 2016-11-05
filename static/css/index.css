@@ -1,0 +1,132 @@
+@import url("https://fonts.googleapis.com/css?family=Source+Code+Pro:400,200,700");
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+body {
+  font-family: 'Source Code Pro', monospace;
+}
+.header {
+  background: url("http://cdn.wonderfulengineering.com/wp-content/uploads/2014/07/Beautiful-Wallpapers-1.jpg");
+  background-position: center;
+}
+.header .page-title {
+  font-weight: 200;
+  font-size: 80px;
+  text-align: center;
+  padding: 100px;
+  text-transform: uppercase;
+  color: #fff;
+}
+.nav {
+  background: #000;
+  text-align: center;
+}
+.nav li {
+  display: inline-block;
+}
+.nav a {
+  display: inline-block;
+  padding: 20px;
+  color: #fff;
+  text-decoration: none;
+}
+.nav a:hover {
+  background-color: #3ab795;
+  text-decoration: underline;
+}
+.main-content {
+  margin: 50px auto;
+  max-width: 600px;
+}
+.main-content p {
+  line-height: 1.6;
+  margin-bottom: 1.7em;
+}
+.footer {
+  margin: 50px auto;
+  max-width: 600px;
+  border-top: 1px solid #444;
+  padding: 20px 0;
+}
+.footer p {
+  color: #444;
+  font-size: 12px;
+}
+.about-img-whut,
+.about-img-usc,
+.about-img-sjsu {
+  width: 120px;
+  height: 120px;
+}
+.about-degree-whut > *,
+.about-degree-usc > *,
+.about-degree-sjsu > * {
+  vertical-align: top;
+}
+.about-degree-whut,
+.about-degree-usc,
+.about-degree-sjsu {
+  margin-bottom: 1em;
+}
+.about-degree-whut p,
+.about-degree-usc p,
+.about-degree-sjsu p {
+  display: inline-block;
+  text-align: left;
+  margin-left: 1.7em;
+}
+
+.done-true {
+  text-decoration: line-through;
+  color: grey;
+}
+
+.dashboard {
+  display: inline-block;
+  padding:25px;
+  width: 100%;
+  border:2px solid;
+}
+
+.left-half, 
+.right-half {
+  float:left;
+  border:2px solid;
+  width:50%;
+  height:500px;
+}
+
+.left-half-1 {
+  height:100px;
+}
+
+.left-half-2 {
+  height:400px;
+}
+
+.input {
+  float:left;
+  width:50%;
+  height:100px;
+  border:2px solid;
+}
+
+.search-model {
+  float:left;
+  width:50%;
+  height:100px;
+  border:2px solid;
+}
+
+.search,
+.model {
+  height:50px;
+}
+
+.alert,
+.detection {
+  border:2px solid;
+  height:200px;
+}

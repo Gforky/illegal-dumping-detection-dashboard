@@ -1,0 +1,58 @@
+doctype html
+
+html
+  head
+    link(rel='stylesheet', href='/css/index.css')
+    script(type='text/javascript', src='https://ajax.googleapis.com/ajax/libs/angularjs/1.5.8/angular.min.js')
+    title Illegal Dumping Detection Dashboard
+  body
+  // -
+    .header
+      h1.page-title Luwen Miao's Workspace
+
+    ul.nav
+      li: a(href='/') Home
+      li: a(href='about') About me
+      li: a(href='https://gfork-blog.herokuapp.com') Blog
+      li: a(href='others') Others
+
+    div(ng-app="myApp", ng-controller="myCtrl")
+      p First Name: 
+        input(type="text", ng-model="firstName")
+        br
+      p Last Name: 
+        input(type="text", ng-model="lastName")
+        br
+      p Full Name: {{firstName + " " + lastName}}
+
+    script.
+      var app = angular.module('myApp', [])
+      app.controller('myCtrl', function($scope) {
+        $scope.firstName = "Luwen"
+        $scope.lastName = "Miao"
+      })
+    
+    .main-content
+      block content
+  div.dashboard
+    div.left-half
+      div.left-half-1
+        div.input
+          p input
+        div.search-model
+          div.search
+            p search
+          div.model
+            p model and network selection
+      div.left-half-2
+        div.alert
+          p alert
+        div.detection
+          p object detection
+
+    div.right-half
+      p training
+
+
+  .footer
+    p Copyright © 2016 Wendy Boo, Alan Chen, Luwen Miao, Xiaoming Chuang
