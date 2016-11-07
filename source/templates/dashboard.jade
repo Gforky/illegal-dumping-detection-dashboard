@@ -4,6 +4,57 @@ html
   head
     link(rel='stylesheet', href='/css/index.css')
     script(type='text/javascript', src='https://ajax.googleapis.com/ajax/libs/angularjs/1.5.8/angular.min.js')
+    script(type='text/javascript', src='http://ajax.googleapis.com/ajax/libs/jquery/1.3.2/jquery.min.js')
+
+    script.
+      var app = angular.module('myApp', [])
+
+      app.controller('trainCtrl', function($scope) {
+        // add the function to dynamically display the cnn traning process outputs
+        $scope.firstName = "Luwen"
+        $scope.lastName = "Miao"
+      })
+
+      app.controller('inputCtrl', function($scope) {
+        // add the function to handle the input data, including images, labels, etc.
+      })
+
+      app.controller('searchCtrl', function($scope) {
+        $scope.searchButton = function() {
+          // add the function for image search
+        }
+      })
+
+      app.controller('modelCtrl', function($scope) {
+        // add the function to change the network correspondingly
+        $scope.VGG16 = function() {
+          $scope.networkName='VGG16'
+        }
+
+        $scope.ZF = function() {
+          $scope.networkName='ZF'
+        }
+
+        $scope.VGG_CNN_M_1024 = function() {
+          $scope.networkName='VGG_CNN_M_1024'
+        }
+      })
+
+      app.controller('alertCtrl', function($scope) {
+        // add the function to continously display the alters for detected illegal dumping
+      })
+
+      app.controller('objectDetectionCtrl', function($scope) {
+        // add the function to continously display the detected trash
+      })
+
+    script.
+      $(document).ready(function monitorTraining() {
+        $(".testButton").click(function() {
+          $("p.trainingLog").append("This is a test <br />")
+        })
+      })
+
     title Illegal Dumping Detection Dashboard
   body
   // -
@@ -19,11 +70,12 @@ html
           div.search(ng-controller="searchCtrl")
             input(type="text", ng-model="imgName")
             button(ng-click="searchButton()") Search Image
-          div.model
+          div.model(ng-controller="modelCtrl")
             ul.nav
-              li: a(href='/') VGG16
-              li: a(href='/') ZF
-              li: a(href='/') VGG_CNN_M_1024
+              li: button(ng-click="VGG16()") VGG16
+              li: button(ng-click="ZF()") ZF
+              li: button(ng-click="VGG_CNN_M_1024()") VGG_CNN_M_1024
+            p Current Network: {{networkName}}
       div.left-half-2
         div.alert
           p alert
@@ -31,7 +83,10 @@ html
           p object detection
 
     div.right-half(ng-controller="trainCtrl")
-      p Monitor for Training Process
+      p.trainingLog
+
+      button.testButton Test for Appending Text
+
       p First Name: 
         input(type="text", ng-model="firstName")
         br
@@ -39,37 +94,7 @@ html
         input(type="text", ng-model="lastName")
         br
       p Full Name: {{firstName + " " + lastName}}
-
-  script.
-    var app = angular.module('myApp', [])
-
-    app.controller('trainCtrl', function($scope) {
-      // add the function to dynamically display the cnn traning process outputs
-      $scope.firstName = "Luwen"
-      $scope.lastName = "Miao"
-    })
-
-    app.controller('inputCtrl', function($scope) {
-      // add the function to handle the input data, including images, labels, etc.
-    })
-
-    app.controller('searchCtrl', function($scope) {
-      $scope.searchButton = function() {
-        // add the function for image search
-      }
-    })
-
-    app.controller('modelCtrl', function($scope) {
-      // add the function to change the network correspondingly
-    })
-
-    app.controller('alertCtrl', function($scope) {
-      // add the function to continously display the alters for detected illegal dumping
-    })
-
-    app.controller('objectDetectionCtrl', function($scope) {
-      // add the function to continously display the detected trash
-    })
+    
 
   .footer
     p Copyright © 2016 Wendy Boo, Alan Chen, Luwen Miao, Xiaoming Chuang
