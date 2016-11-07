@@ -10,13 +10,28 @@ html
     .header
       h1.page-title Luwen Miao's Workspace
 
-    ul.nav
-      li: a(href='/') Home
-      li: a(href='about') About me
-      li: a(href='https://gfork-blog.herokuapp.com') Blog
-      li: a(href='others') Others
+  div.dashboard(ng-app="myApp")
+    div.left-half
+      div.left-half-1
+        div.input
+          p input
+        div.search-model
+          div.search(ng-controller="searchCtrl")
+            input(type="text", ng-model="imgName")
+            button(ng-click="searchButton()") Search Image
+          div.model
+            ul.nav
+              li: a(href='/') VGG16
+              li: a(href='/') ZF
+              li: a(href='/') VGG_CNN_M_1024
+      div.left-half-2
+        div.alert
+          p alert
+        div.detection
+          p object detection
 
-    div(ng-app="myApp", ng-controller="myCtrl")
+    div.right-half(ng-controller="trainCtrl")
+      p Monitor for Training Process
       p First Name: 
         input(type="text", ng-model="firstName")
         br
@@ -25,34 +40,36 @@ html
         br
       p Full Name: {{firstName + " " + lastName}}
 
-    script.
-      var app = angular.module('myApp', [])
-      app.controller('myCtrl', function($scope) {
-        $scope.firstName = "Luwen"
-        $scope.lastName = "Miao"
-      })
-    
-    .main-content
-      block content
-  div.dashboard
-    div.left-half
-      div.left-half-1
-        div.input
-          p input
-        div.search-model
-          div.search
-            p search
-          div.model
-            p model and network selection
-      div.left-half-2
-        div.alert
-          p alert
-        div.detection
-          p object detection
+  script.
+    var app = angular.module('myApp', [])
 
-    div.right-half
-      p training
+    app.controller('trainCtrl', function($scope) {
+      // add the function to dynamically display the cnn traning process outputs
+      $scope.firstName = "Luwen"
+      $scope.lastName = "Miao"
+    })
 
+    app.controller('inputCtrl', function($scope) {
+      // add the function to handle the input data, including images, labels, etc.
+    })
+
+    app.controller('searchCtrl', function($scope) {
+      $scope.searchButton = function() {
+        // add the function for image search
+      }
+    })
+
+    app.controller('modelCtrl', function($scope) {
+      // add the function to change the network correspondingly
+    })
+
+    app.controller('alertCtrl', function($scope) {
+      // add the function to continously display the alters for detected illegal dumping
+    })
+
+    app.controller('objectDetectionCtrl', function($scope) {
+      // add the function to continously display the detected trash
+    })
 
   .footer
     p Copyright © 2016 Wendy Boo, Alan Chen, Luwen Miao, Xiaoming Chuang
