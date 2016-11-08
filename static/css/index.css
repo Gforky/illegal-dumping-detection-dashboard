@@ -8,14 +8,14 @@ body {
   font-family: 'Source Code Pro', monospace;
 }
 .header {
-  background: url("http://cdn.wonderfulengineering.com/wp-content/uploads/2014/07/Beautiful-Wallpapers-1.jpg");
+  background-color: #008CBA;
   background-position: center;
 }
 .header .page-title {
   font-weight: 200;
-  font-size: 80px;
+  font-size: 20px;
   text-align: center;
-  padding: 100px;
+  padding: 20px;
   text-transform: uppercase;
   color: #fff;
 }
@@ -55,39 +55,12 @@ body {
   color: #444;
   font-size: 12px;
 }
-.about-img-whut,
-.about-img-usc,
-.about-img-sjsu {
-  width: 120px;
-  height: 120px;
-}
-.about-degree-whut > *,
-.about-degree-usc > *,
-.about-degree-sjsu > * {
-  vertical-align: top;
-}
-.about-degree-whut,
-.about-degree-usc,
-.about-degree-sjsu {
-  margin-bottom: 1em;
-}
-.about-degree-whut p,
-.about-degree-usc p,
-.about-degree-sjsu p {
-  display: inline-block;
-  text-align: left;
-  margin-left: 1.7em;
-}
-
-.done-true {
-  text-decoration: line-through;
-  color: grey;
-}
 
 .dashboard {
   display: inline-block;
   padding:25px;
   width: 100%;
+  height:600px;
   border:2px solid;
 }
 
@@ -96,40 +69,55 @@ body {
   float:left;
   border:2px solid;
   width:50%;
-  height:500px;
-  overflow: scroll;
+  height:100%;
 }
 
 .left-half-1 {
-  height:100px;
+  height:30%;
 }
 
 .left-half-2 {
-  height:400px;
+  height:70%;
 }
 
 .input {
   float:left;
   width:50%;
-  height:100px;
+  height:100%;
   border:2px solid;
 }
 
 .search-model {
   float:left;
   width:50%;
-  height:100px;
+  height:100%;
   border:2px solid;
 }
 
 .search,
 .model {
-  height:50px;
+  height:50%;
 }
 
 .alert,
 .detection {
   border:2px solid;
-  height:200px;
+  height:45%;
   overflow: scroll;
+}
+
+.train {
+  border:2px solid;
+  height:45%;
+  overflow: scroll;
+}
+
+.precisionChart {
+  border:2px solid;
+  height:50%;
+  overflow: scroll;
+}
+
+.logButtons {
+  height:5%;
 }
