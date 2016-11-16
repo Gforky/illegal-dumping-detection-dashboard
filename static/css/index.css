@@ -112,9 +112,33 @@ body {
   overflow: scroll;
 }
 
-.precisionChart {
+.chartButtons {
+  height:5%;
+}
+
+.AP,
+.cpuUsage,
+.datasetSize,
+.detectedObjects {
+  display: inline-block;
+  background-color: #008CBA;
+  color: white;
+  height:100%;
+  width:25%;
+  text-decoration: none;
+}
+
+.AP:hover,
+.cpuUsage:hover,
+.datasetSize:hover,
+.detectedObjects:hover {
+  background-color: #3ab795;
+  text-decoration: underline;
+}
+
+.Chart {
   border:2px solid;
-  height:50%;
+  height:45%;
   overflow: scroll;
 }
 

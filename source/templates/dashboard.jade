@@ -22,7 +22,7 @@ html
         
       })
 
-      app.controller('precisionCtrl', function($scope) {
+      app.controller('chartCtrl', function($scope) {
         // add the function to dynamically read the AP data from back-end
       })
 
@@ -102,8 +102,8 @@ html
     // c3 library charts
     script.
       $(document).ready(function() {
-        var APChart = c3.generate({
-          bindto: '.precisionChart',
+        var chart = c3.generate({
+          bindto: '.Chart',
           data: {
             x : 'x',
             columns: [
@@ -130,10 +130,32 @@ html
             }
           }
         })
+
+        $(".AP").click(function() {
+          //chart.axis.ticks{x : {format: '%Y-%m-%d'}, y : {format: d3.format(",%")}}
+          chart.axis.labels({y : 'Average Precision'})
+        })
+
+        $(".cpuUsage").click(function() {
+          //chart.axis.ticks{x : {format: '%Y-%m-%d'}, y : {format: d3.format(",%")}}
+          chart.axis.labels({y : 'CPU Usage'})
+        })
+
+        $(".datasetSize").click(function() {
+          //chart.axis.ticks{x : {format: '%Y-%m-%d'}, y : {format: d3.format(",%")}}
+          chart.axis.labels({y : 'Dataset Size'})
+        })
+
+        $(".detectedObjects").click(function() {
+          //chart.axis.ticks{x : {format: '%Y-%m-%d'}, y : {format: d3.format(",%")}}
+          chart.axis.labels({y : 'Detected Objects'})
+        })
       })
 
 
-    title Illegal Dumping Detection Dashboard
+
+
+  title Illegal Dumping Detection Dashboard
   body
     .header
       h1.page-title Illegal Dumping Detection System Dashboard
@@ -171,7 +193,12 @@ html
           button.trainingLogReset Reset Log
         div.train(ng-controller="trainCtrl")
           p.trainingLog
-        div.precisionChart(ng-controller="precisionCtrl")
+        div.chartButtons
+          button.AP Average Precisions
+          button.cpuUsage CPU Usage
+          button.datasetSize Dataset Size
+          button.detectedObjects Detected Objects
+        div.Chart(ng-controller="chartCtrl")
 
     .footer
       p Copyright © 2016 Wendy Boo, Alan Chen, Luwen Miao, Xiaoming Chuang
