@@ -99,6 +99,20 @@ html
         timer = setInterval(checker, 500)
       })
 
+    // js function to dynamically set display parameter of div
+    script.
+      var currentVisibility = 1;
+
+      var setVisibility = function(className) {
+        if (!currentVisibility) {
+          document.getElementsByClassName(className)[0].style.display = "block";
+        }
+        else if (currentVisibility) {
+          document.getElementsByClassName(className)[0].style.display = "none";
+        }
+        currentVisibility = !currentVisibility;
+      }
+
     // c3 library charts
     script.
       $(document).ready(function() {
@@ -159,6 +173,11 @@ html
   body
     .header
       h1.page-title Illegal Dumping Detection System Dashboard
+
+    div.switchGridButtons
+      button(onclick='setVisibility("dashboard")') View Logs
+      button(onclick='setVisibility("dashboard")') Data Virtualization
+      button(onclick='setVisibility("dashboard")') System Operations
 
     div.dashboard(ng-app="myApp")
       div.left-half

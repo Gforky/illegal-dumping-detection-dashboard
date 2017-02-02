@@ -67,7 +67,6 @@ body {
 .left-half, 
 .right-half {
   float:left;
-  border:2px solid;
   width:50%;
   height:100%;
 }
@@ -84,14 +83,12 @@ body {
   float:left;
   width:50%;
   height:100%;
-  border:2px solid;
 }
 
 .search-model {
   float:left;
   width:50%;
   height:100%;
-  border:2px solid;
 }
 
 .search,
@@ -101,19 +98,13 @@ body {
 
 .alert,
 .detection {
-  border:2px solid;
   height:45%;
   overflow: scroll;
 }
 
 .train {
-  border:2px solid;
   height:45%;
   overflow: scroll;
-}
-
-.chartButtons {
-  height:5%;
 }
 
 .AP,
@@ -137,11 +128,6 @@ body {
 }
 
 .Chart {
-  border:2px solid;
   height:45%;
   overflow: scroll;
-}
-
-.logButtons {
-  height:5%;
 }
