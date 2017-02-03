@@ -10,7 +10,6 @@ app.use(logger('dev'))
 app.use(express.static(__dirname + '/static'))
 app.use(express.static(__dirname + '/bower_components'))
 
-
 app.get('/', function (req, res, next) {
   try {
     var html = dashboard({ title: 'Dashboard' })

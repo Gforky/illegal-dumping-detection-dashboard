@@ -5,13 +5,17 @@ html
     link(rel='stylesheet', href='/css/index.css')
     // load c3.css
     link(rel='stylesheet', href='/c3/c3.css', type='text/css')
-    //load angular js
+    // load angular js
     script(type='text/javascript', src='https://ajax.googleapis.com/ajax/libs/angularjs/1.5.8/angular.min.js')
-    //load jquery
+    // load jquery
     script(type='text/javascript', src='http://ajax.googleapis.com/ajax/libs/jquery/1.3.2/jquery.min.js')
-    //load c3.js and d3.js
+    // load c3.js and d3.js
     script(src='/d3/d3.min.js', charset='utf-8')
     script(src='/c3/c3.min.js')
+    // dropzone scripts
+    script(src='https://rawgit.com/enyo/dropzone/master/dist/dropzone.js')
+    link(rel='stylesheet', href='/css/basic.css')
+    link(rel='stylesheet', href='/css/dropzone.css')
 
     // angularjs controllers
     script.
@@ -209,12 +213,16 @@ html
 
     div(ng-app="dashboard")
 
-      // log views webpage
-      div.logViews
+      // system opertations webpage
+      div.sysOps
+        p System Operations
         div.left-half
           div.left-half-1
-            div.input
-              p input
+            div.upload-files
+              form.dropzone.dz-clickable(action='/upload-files')
+                 div.dz-message Drop files here or click to upload.
+                    br
+                    span.note (This is just a demo dropzone. Selected files are <strong>not</strong> actually uploaded.)
             div.search-model
               div.search(ng-controller="searchCtrl")
                 input(type="text", ng-model="imgName")
@@ -225,24 +233,8 @@ html
                   li: button(ng-click="ZF()") ZF
                   li: button(ng-click="VGG_CNN_M_1024()") VGG_CNN_M_1024
                 p Current Network: {{networkName}}
-          div.left-half-2
-            div.logButtons
-              button.alertLogRefresh Manually refresh log
-              button.alertLogReset Reset Log
-            div.alert
-              p.alertLog
-            div.logButtons
-              button.detectionLogRefresh Manually refresh log
-              button.detectionLogReset Reset Log
-            div.detection
-              p.detectionLog
-
         div.right-half
-          div.logButtons
-            button.trainingLogRefresh Manually refresh log
-            button.trainingLogReset Reset Log
-          div.train(ng-controller="trainCtrl")
-            p.trainingLog
+          iframe.detectLocations(src="https://www.google.com/maps/embed/v1/place?key=AIzaSyB-denz3OyVbLzOvKpehCzSLJzNohqAebo &q=Space+Needle,Seattle+WA" allowfullscreen)
 
       // data virtualization webpage
       div.dataViews
@@ -261,25 +253,28 @@ html
           button.detectedObjects Detected Objects
         div.objChart(ng-controller="chartCtrl")
 
-      // system opertations webpage
-      div.sysOps
-        p System Operations
+      // log views webpage
+      div.logViews
         div.left-half
           div.left-half-1
-            div.input
-              p input
-            div.search-model
-              div.search(ng-controller="searchCtrl")
-                input(type="text", ng-model="imgName")
-                button(ng-click="searchButton()") Search Image
-              div.model(ng-controller="modelCtrl")
-                ul.nav
-                  li: button(ng-click="VGG16()") VGG16
-                  li: button(ng-click="ZF()") ZF
-                  li: button(ng-click="VGG_CNN_M_1024()") VGG_CNN_M_1024
-                p Current Network: {{networkName}}
+          div.left-half-2
+            div.logButtons
+              button.alertLogRefresh Manually refresh log
+              button.alertLogReset Reset Log
+            div.alert
+              p.alertLog
+            div.logButtons
+              button.detectionLogRefresh Manually refresh log
+              button.detectionLogReset Reset Log
+            div.detection
+              p.detectionLog
+
         div.right-half
-          iframe.detectLocations(src="https://www.google.com/maps/embed/v1/place?key=AIzaSyB-denz3OyVbLzOvKpehCzSLJzNohqAebo &q=Space+Needle,Seattle+WA" allowfullscreen)
+          div.logButtons
+            button.trainingLogRefresh Manually refresh log
+            button.trainingLogReset Reset Log
+          div.train(ng-controller="trainCtrl")
+            p.trainingLog
 
     .footer
       p Copyright © 2016 Wendy Boo, Alan Chen, Luwen Miao, Xiaoming Chuang
