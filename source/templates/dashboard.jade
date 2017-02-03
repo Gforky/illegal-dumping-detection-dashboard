@@ -207,58 +207,79 @@ html
       button(onclick='setVisibility(["dataViews", "logViews", "sysOps"])') Data Virtualization
       button(onclick='setVisibility(["logViews", "dataViews", "sysOps"])') Log Views
 
-    div.logViews(ng-app="dashboard")
-      div.left-half
-        div.left-half-1
-          div.input
-            p input
-          div.search-model
-            div.search(ng-controller="searchCtrl")
-              input(type="text", ng-model="imgName")
-              button(ng-click="searchButton()") Search Image
-            div.model(ng-controller="modelCtrl")
-              ul.nav
-                li: button(ng-click="VGG16()") VGG16
-                li: button(ng-click="ZF()") ZF
-                li: button(ng-click="VGG_CNN_M_1024()") VGG_CNN_M_1024
-              p Current Network: {{networkName}}
-        div.left-half-2
+    div(ng-app="dashboard")
+
+      // log views webpage
+      div.logViews
+        div.left-half
+          div.left-half-1
+            div.input
+              p input
+            div.search-model
+              div.search(ng-controller="searchCtrl")
+                input(type="text", ng-model="imgName")
+                button(ng-click="searchButton()") Search Image
+              div.model(ng-controller="modelCtrl")
+                ul.nav
+                  li: button(ng-click="VGG16()") VGG16
+                  li: button(ng-click="ZF()") ZF
+                  li: button(ng-click="VGG_CNN_M_1024()") VGG_CNN_M_1024
+                p Current Network: {{networkName}}
+          div.left-half-2
+            div.logButtons
+              button.alertLogRefresh Manually refresh log
+              button.alertLogReset Reset Log
+            div.alert
+              p.alertLog
+            div.logButtons
+              button.detectionLogRefresh Manually refresh log
+              button.detectionLogReset Reset Log
+            div.detection
+              p.detectionLog
+
+        div.right-half
           div.logButtons
-            button.alertLogRefresh Manually refresh log
-            button.alertLogReset Reset Log
-          div.alert
-            p.alertLog
-          div.logButtons
-            button.detectionLogRefresh Manually refresh log
-            button.detectionLogReset Reset Log
-          div.detection
-            p.detectionLog
+            button.trainingLogRefresh Manually refresh log
+            button.trainingLogReset Reset Log
+          div.train(ng-controller="trainCtrl")
+            p.trainingLog
 
-      div.right-half
-        div.logButtons
-          button.trainingLogRefresh Manually refresh log
-          button.trainingLogReset Reset Log
-        div.train(ng-controller="trainCtrl")
-          p.trainingLog
+      // data virtualization webpage
+      div.dataViews
+        p Data Virtualization
+        div.chartButtons
+          button.AP Average Precisions
+          button.cpuUsage CPU Usage
+          button.datasetSize Dataset Size
+          button.detectedObjects Detected Objects
+        div.sysChart(ng-controller="chartCtrl")
 
-    div.dataViews(ng-app="dashboard")
-      p Data Virtualization
-      div.chartButtons
-        button.AP Average Precisions
-        button.cpuUsage CPU Usage
-        button.datasetSize Dataset Size
-        button.detectedObjects Detected Objects
-      div.sysChart(ng-controller="chartCtrl")
+        div.chartButtons
+          button.AP Average Precisions
+          button.cpuUsage CPU Usage
+          button.datasetSize Dataset Size
+          button.detectedObjects Detected Objects
+        div.objChart(ng-controller="chartCtrl")
 
-      div.chartButtons
-        button.AP Average Precisions
-        button.cpuUsage CPU Usage
-        button.datasetSize Dataset Size
-        button.detectedObjects Detected Objects
-      div.objChart(ng-controller="chartCtrl")
-
-    div.sysOps(ng-app="dashboard")
-      p System Operations
+      // system opertations webpage
+      div.sysOps
+        p System Operations
+        div.left-half
+          div.left-half-1
+            div.input
+              p input
+            div.search-model
+              div.search(ng-controller="searchCtrl")
+                input(type="text", ng-model="imgName")
+                button(ng-click="searchButton()") Search Image
+              div.model(ng-controller="modelCtrl")
+                ul.nav
+                  li: button(ng-click="VGG16()") VGG16
+                  li: button(ng-click="ZF()") ZF
+                  li: button(ng-click="VGG_CNN_M_1024()") VGG_CNN_M_1024
+                p Current Network: {{networkName}}
+        div.right-half
+          iframe.detectLocations(src="https://www.google.com/maps/embed/v1/place?key=AIzaSyB-denz3OyVbLzOvKpehCzSLJzNohqAebo &q=Space+Needle,Seattle+WA" allowfullscreen)
 
     .footer
       p Copyright © 2016 Wendy Boo, Alan Chen, Luwen Miao, Xiaoming Chuang
