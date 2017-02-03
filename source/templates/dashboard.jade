@@ -15,7 +15,7 @@ html
 
     // angularjs controllers
     script.
-      var app = angular.module('myApp', [])
+      var app = angular.module('dashboard', [])
 
       app.controller('trainCtrl', function($scope) {
         // add the function to dynamically display the cnn traning process outputs
@@ -101,23 +101,49 @@ html
 
     // js function to dynamically set display parameter of div
     script.
-      var currentVisibility = 1;
-
-      var setVisibility = function(className) {
-        if (!currentVisibility) {
-          document.getElementsByClassName(className)[0].style.display = "block";
+      var setVisibility = function(classNames) {
+        document.getElementsByClassName(classNames[0])[0].style.display = "inline-block";
+        for (index = 1; index < classNames.length; ++index) {
+          document.getElementsByClassName(classNames[index])[0].style.display = "none";
         }
-        else if (currentVisibility) {
-          document.getElementsByClassName(className)[0].style.display = "none";
-        }
-        currentVisibility = !currentVisibility;
       }
 
     // c3 library charts
     script.
       $(document).ready(function() {
+      // chart of system status
         var chart = c3.generate({
-          bindto: '.Chart',
+          bindto: '.sysChart',
+          data: {
+            x : 'x',
+            columns: [
+              ['x', '2013-01-01', '2013-01-02', '2013-01-03', '2013-01-04', '2013-01-05', '2013-01-06'],
+              ['matrix', 0.55, 0.80, 0.70, 0.68, 0.98, 0.88],
+              ['sofa', 0.76, 0.85, 0.96, 0.97, 0.86, 0.78]
+            ]
+          },
+          axis: {
+            x: {
+              type: 'timeseries',
+              tick: {
+                  format: '%Y-%m-%d'
+              }
+            },
+            y: {
+              label: { // ADD
+                text: 'Average Precision',
+                position: 'outer-middle'
+              },
+              tick: {
+                format: d3.format(",%") // ADD
+              }
+            }
+          }
+        })
+
+      // chart of detection objects info
+        var chart = c3.generate({
+          bindto: '.objChart',
           data: {
             x : 'x',
             columns: [
@@ -164,6 +190,8 @@ html
           //chart.axis.ticks{x : {format: '%Y-%m-%d'}, y : {format: d3.format(",%")}}
           chart.axis.labels({y : 'Detected Objects'})
         })
+
+        document.getElementsByClassName("dataViews")[0].style.display = "none";
       })
 
 
@@ -175,11 +203,11 @@ html
       h1.page-title Illegal Dumping Detection System Dashboard
 
     div.switchGridButtons
-      button(onclick='setVisibility("dashboard")') View Logs
-      button(onclick='setVisibility("dashboard")') Data Virtualization
-      button(onclick='setVisibility("dashboard")') System Operations
+      button(onclick='setVisibility(["sysOps", "dataViews", "logViews"])') System Operations
+      button(onclick='setVisibility(["dataViews", "logViews", "sysOps"])') Data Virtualization
+      button(onclick='setVisibility(["logViews", "dataViews", "sysOps"])') Log Views
 
-    div.dashboard(ng-app="myApp")
+    div.logViews(ng-app="dashboard")
       div.left-half
         div.left-half-1
           div.input
@@ -212,12 +240,25 @@ html
           button.trainingLogReset Reset Log
         div.train(ng-controller="trainCtrl")
           p.trainingLog
-        div.chartButtons
-          button.AP Average Precisions
-          button.cpuUsage CPU Usage
-          button.datasetSize Dataset Size
-          button.detectedObjects Detected Objects
-        div.Chart(ng-controller="chartCtrl")
+
+    div.dataViews(ng-app="dashboard")
+      p Data Virtualization
+      div.chartButtons
+        button.AP Average Precisions
+        button.cpuUsage CPU Usage
+        button.datasetSize Dataset Size
+        button.detectedObjects Detected Objects
+      div.sysChart(ng-controller="chartCtrl")
+
+      div.chartButtons
+        button.AP Average Precisions
+        button.cpuUsage CPU Usage
+        button.datasetSize Dataset Size
+        button.detectedObjects Detected Objects
+      div.objChart(ng-controller="chartCtrl")
+
+    div.sysOps(ng-app="dashboard")
+      p System Operations
 
     .footer
       p Copyright © 2016 Wendy Boo, Alan Chen, Luwen Miao, Xiaoming Chuang
