@@ -63,16 +63,30 @@ html
         // add the function to continously display the detected trash
       })
 
-      app.controller('todoController', function($scope) {
+      app.controller('todoController', ['$scope', '$interval', function($scope, $interval) {
         // controller for to-do list of trash collections
         $scope.tasks = [];
+        $scope.title = 'test';
         $scope.add = function() {
           $scope.tasks.push($scope.title);
         }
         $scope.delete = function() {
           $scope.tasks.splice(this.$index, 1);
         }
-      })
+
+        function updateTodoList() {
+          $scope.tasks.push($scope.title);
+        }
+
+        // set interval to continously update the list
+        var updateTime = $interval(updateTodoList, 1000);
+
+        /*element.on('$destroy', function() {
+          $interval.cancel(updateTime);
+        })*/
+      }])
+
+      app.directive()
 
     // js functions to dynamically read logs from back-end
     script.
@@ -101,7 +115,7 @@ html
           $("p.detectionLog").replaceWith("<p class='detectionLog'></p>")
         })
         // this function will repeatedly check the updates of logs
-        var checker = function(){
+        var checker = function() {
           $("p.trainingLog").append("This is a training output <br />")
           $("p.alertLog").append("This is a alert output <br />")
           $("p.detectionLog").append("This is a detection output <br />")
@@ -109,7 +123,7 @@ html
           $(".train").scrollTop($(".train")[0].scrollHeight)
           $(".alert").scrollTop($(".alert")[0].scrollHeight)
           $(".detection").scrollTop($(".detection")[0].scrollHeight)
-          clearInternal(timer)
+          //clearInternal(timer)
         }
         timer = setInterval(checker, 500)
       })
