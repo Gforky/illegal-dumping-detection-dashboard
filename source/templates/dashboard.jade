@@ -63,6 +63,17 @@ html
         // add the function to continously display the detected trash
       })
 
+      app.controller('todoController', function($scope) {
+        // controller for to-do list of trash collections
+        $scope.tasks = [];
+        $scope.add = function() {
+          $scope.tasks.push($scope.title);
+        }
+        $scope.delete = function() {
+          $scope.tasks.splice(this.$index, 1);
+        }
+      })
+
     // js functions to dynamically read logs from back-end
     script.
       $(document).ready(function monitorTraining() {
@@ -233,6 +244,14 @@ html
                   li: button(ng-click="ZF()") ZF
                   li: button(ng-click="VGG_CNN_M_1024()") VGG_CNN_M_1024
                 p Current Network: {{networkName}}
+          div.left-half-2
+            div.todo-list(ng-controller='todoController')
+              form(ng-submit='add()')
+                input(ng-model='title')
+                button Add
+              ul
+                li(ng-repeat='t in tasks track by $index'): button(ng-click='delete()') {{ t }} 
+
         div.right-half
           iframe.detectLocations(src="https://www.google.com/maps/embed/v1/place?key=AIzaSyB-denz3OyVbLzOvKpehCzSLJzNohqAebo &q=Space+Needle,Seattle+WA" allowfullscreen)
 
