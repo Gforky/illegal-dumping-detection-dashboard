@@ -119,9 +119,17 @@ body {
 }
 
 .AP,
-.cpuUsage,
 .datasetSize,
-.detectedObjects {
+.detectedObjects,
+.cpuUsage,
+.memLoad,
+.cpuTemp,
+.imgStorage,
+.dbIO,
+.dbQuery,
+.completedTasks,
+.supDec,
+.upImg {
   display: inline-block;
   background-color: #008CBA;
   color: white;
@@ -131,9 +139,17 @@ body {
 }
 
 .AP:hover,
-.cpuUsage:hover,
 .datasetSize:hover,
-.detectedObjects:hover {
+.detectedObjects:hover,
+.cpuUsage:hover,
+.memLoad:hover,
+.cpuTemp:hover,
+.imgStorage:hover,
+.dbIO:hover,
+.dbQuery:hover,
+.completedTasks:hover,
+.supDec:hover,
+.upImg:hover  {
   background-color: #3ab795;
   text-decoration: underline;
 }

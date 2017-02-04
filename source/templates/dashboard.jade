@@ -141,7 +141,7 @@ html
     script.
       $(document).ready(function() {
       // chart of system status
-        var chart = c3.generate({
+        var sysChart = c3.generate({
           bindto: '.sysChart',
           data: {
             x : 'x',
@@ -160,7 +160,7 @@ html
             },
             y: {
               label: { // ADD
-                text: 'Average Precision',
+                text: 'CPU Usage',
                 position: 'outer-middle'
               },
               tick: {
@@ -170,9 +170,9 @@ html
           }
         })
 
-      // chart of detection objects info
-        var chart = c3.generate({
-          bindto: '.objChart',
+      // chart of database status
+        var dbChart = c3.generate({
+          bindto: '.dbChart',
           data: {
             x : 'x',
             columns: [
@@ -190,7 +190,7 @@ html
             },
             y: {
               label: { // ADD
-                text: 'Average Precision',
+                text: 'Image Storage',
                 position: 'outer-middle'
               },
               tick: {
@@ -200,14 +200,107 @@ html
           }
         })
 
-        $(".AP").click(function() {
-          //chart.axis.ticks{x : {format: '%Y-%m-%d'}, y : {format: d3.format(",%")}}
-          chart.axis.labels({y : 'Average Precision'})
+        // chart of neural network status
+        var nnChart = c3.generate({
+          bindto: '.nnChart',
+          data: {
+            x : 'x',
+            columns: [
+              ['x', '2013-01-01', '2013-01-02', '2013-01-03', '2013-01-04', '2013-01-05', '2013-01-06'],
+              ['matrix', 0.55, 0.80, 0.70, 0.68, 0.98, 0.88],
+              ['sofa', 0.76, 0.85, 0.96, 0.97, 0.86, 0.78]
+            ]
+          },
+          axis: {
+            x: {
+              type: 'timeseries',
+              tick: {
+                  format: '%Y-%m-%d'
+              }
+            },
+            y: {
+              label: { // ADD
+                text: 'Average Precisions',
+                position: 'outer-middle'
+              },
+              tick: {
+                format: d3.format(",%") // ADD
+              }
+            }
+          }
         })
 
+        // chart of client usage status
+        var cuChart = c3.generate({
+          bindto: '.cuChart',
+          data: {
+            x : 'x',
+            columns: [
+              ['x', '2013-01-01', '2013-01-02', '2013-01-03', '2013-01-04', '2013-01-05', '2013-01-06'],
+              ['matrix', 0.55, 0.80, 0.70, 0.68, 0.98, 0.88],
+              ['sofa', 0.76, 0.85, 0.96, 0.97, 0.86, 0.78]
+            ]
+          },
+          axis: {
+            x: {
+              type: 'timeseries',
+              tick: {
+                  format: '%Y-%m-%d'
+              }
+            },
+            y: {
+              label: { // ADD
+                text: 'Compelted Tasks',
+                position: 'outer-middle'
+              },
+              tick: {
+                format: d3.format(",%") // ADD
+              }
+            }
+          }
+        })
+
+        // button clicks of System Status Chart
         $(".cpuUsage").click(function() {
           //chart.axis.ticks{x : {format: '%Y-%m-%d'}, y : {format: d3.format(",%")}}
           chart.axis.labels({y : 'CPU Usage'})
+        })
+
+        $(".memLoad").click(function() {
+          //chart.axis.ticks{x : {format: '%Y-%m-%d'}, y : {format: d3.format(",%")}}
+          chart.axis.labels({y : 'Memory Load'})
+        })
+
+        $(".netTraff").click(function() {
+          //chart.axis.ticks{x : {format: '%Y-%m-%d'}, y : {format: d3.format(",%")}}
+          chart.axis.labels({y : 'Network Traffic'})
+        })
+
+        $(".cpuTemp").click(function() {
+          //chart.axis.ticks{x : {format: '%Y-%m-%d'}, y : {format: d3.format(",%")}}
+          chart.axis.labels({y : 'CPU Temperature'})
+        })
+
+        // button clicks of Database Status Chart
+        $(".imgStorage").click(function() {
+          //chart.axis.ticks{x : {format: '%Y-%m-%d'}, y : {format: d3.format(",%")}}
+          chart.axis.labels({y : 'Image Storage'})
+        })
+
+        $(".dbIO").click(function() {
+          //chart.axis.ticks{x : {format: '%Y-%m-%d'}, y : {format: d3.format(",%")}}
+          chart.axis.labels({y : 'I/O Traffic'})
+        })
+
+        $(".dbQuery").click(function() {
+          //chart.axis.ticks{x : {format: '%Y-%m-%d'}, y : {format: d3.format(",%")}}
+          chart.axis.labels({y : 'Database Queries'})
+        })
+
+        // button clicks of Neural Network Status Chart
+        $(".AP").click(function() {
+          //chart.axis.ticks{x : {format: '%Y-%m-%d'}, y : {format: d3.format(",%")}}
+          chart.axis.labels({y : 'Average Precision'})
         })
 
         $(".datasetSize").click(function() {
@@ -218,6 +311,22 @@ html
         $(".detectedObjects").click(function() {
           //chart.axis.ticks{x : {format: '%Y-%m-%d'}, y : {format: d3.format(",%")}}
           chart.axis.labels({y : 'Detected Objects'})
+        })
+
+        // button clicks of Client Usage Status Chart
+        $(".completedTasks").click(function() {
+          //chart.axis.ticks{x : {format: '%Y-%m-%d'}, y : {format: d3.format(",%")}}
+          chart.axis.labels({y : 'Completed Tasks'})
+        })
+
+        $(".supDec").click(function() {
+          //chart.axis.ticks{x : {format: '%Y-%m-%d'}, y : {format: d3.format(",%")}}
+          chart.axis.labels({y : 'Supervision Decisions'})
+        })
+
+        $(".upImg").click(function() {
+          //chart.axis.ticks{x : {format: '%Y-%m-%d'}, y : {format: d3.format(",%")}}
+          chart.axis.labels({y : 'Upload Images'})
         })
 
         document.getElementsByClassName("dataViews")[0].style.display = "none";
@@ -273,18 +382,29 @@ html
       div.dataViews
         p Data Virtualization
         div.chartButtons
-          button.AP Average Precisions
           button.cpuUsage CPU Usage
-          button.datasetSize Dataset Size
-          button.detectedObjects Detected Objects
+          button.memLoad Memory Load
+          button.netTraff Network Traffic
+          button.cpuTemp CPU Temprature
         div.sysChart(ng-controller="chartCtrl")
 
         div.chartButtons
+          button.imgStorage Image Storage
+          button.dbIO I/O Traffic
+          button.dbQuery Database Queries
+        div.dbChart(ng-controller="chartCtrl")
+
+        div.chartButtons
           button.AP Average Precisions
-          button.cpuUsage CPU Usage
           button.datasetSize Dataset Size
           button.detectedObjects Detected Objects
-        div.objChart(ng-controller="chartCtrl")
+        div.nnChart(ng-controller="chartCtrl")
+
+        div.chartButtons
+          button.completedTasks Completed Tasks
+          button.supDec Supervision Decisions
+          button.upImg Upload Images
+        div.cuChart(ng-controller="chartCtrl")
 
       // log views webpage
       div.logViews
