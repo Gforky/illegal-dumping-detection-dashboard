@@ -136,8 +136,10 @@ html
     script.
       var setVisibility = function(classNames) {
         document.getElementsByClassName(classNames[0])[0].style.display = "inline-block";
+        document.getElementsByClassName(classNames[0] + "Button")[0].style.backgroundColor = "#3ab795";
         for (index = 1; index < classNames.length; ++index) {
           document.getElementsByClassName(classNames[index])[0].style.display = "none";
+          document.getElementsByClassName(classNames[index] + "Button")[0].style.backgroundColor = "#008CBA";
         }
       }
 
@@ -150,15 +152,14 @@ html
       h1.page-title Illegal Dumping Detection System Dashboard
 
     div.switchGridButtons
-      button(onclick='setVisibility(["sysOps", "dataViews", "logViews"])') System Operations
-      button(onclick='setVisibility(["dataViews", "logViews", "sysOps"])') Data Virtualization
-      button(onclick='setVisibility(["logViews", "dataViews", "sysOps"])') Log Views
+      button.sysOpsButton(onclick='setVisibility(["sysOps", "dataViews", "logViews"])') System Operations
+      button.dataViewsButton(onclick='setVisibility(["dataViews", "logViews", "sysOps"])') Data Virtualization
+      button.logViewsButton(onclick='setVisibility(["logViews", "dataViews", "sysOps"])') Log Views
 
     div(ng-app="dashboard")
 
       // system opertations webpage
       div.sysOps
-        p System Operations
         div.left-half
           div.left-half-1
             div.upload-files
@@ -189,31 +190,38 @@ html
 
       // data virtualization webpage
       div.dataViews
-        p Data Virtualization
-        div.chartButtons
-          button.cpuUsage CPU Usage
-          button.memLoad Memory Load
-          button.netTraff Network Traffic
-          button.cpuTemp CPU Temprature
-        div.sysChart(ng-controller="chartCtrl")
+        div.sysStat
+          h2 System Status
+          div.chartButtons
+            button.cpuUsage CPU Usage
+            button.memLoad Memory Load
+            button.netTraff Network Traffic
+            button.cpuTemp CPU Temprature
+          div.sysChart(ng-controller="chartCtrl")
 
-        div.chartButtons
-          button.imgStorage Image Storage
-          button.dbIO I/O Traffic
-          button.dbQuery Database Queries
-        div.dbChart(ng-controller="chartCtrl")
+        div.dbStat
+          h2 Database Status
+          div.chartButtons
+            button.imgStorage Image Storage
+            button.dbIO I/O Traffic
+            button.dbQuery Database Queries
+          div.dbChart(ng-controller="chartCtrl")
 
-        div.chartButtons
-          button.AP Average Precisions
-          button.datasetSize Dataset Size
-          button.detectedObjects Detected Objects
-        div.nnChart(ng-controller="chartCtrl")
+        div.nnStat
+          h2 Neural Network Status
+          div.chartButtons
+            button.AP Average Precisions
+            button.datasetSize Dataset Size
+            button.detectedObjects Detected Objects
+          div.nnChart(ng-controller="chartCtrl")
 
-        div.chartButtons
-          button.completedTasks Completed Tasks
-          button.supDec Supervision Decisions
-          button.upImg Upload Images
-        div.cuChart(ng-controller="chartCtrl")
+        div.cuStat
+          h2 Client Usage Status
+          div.chartButtons
+            button.completedTasks Completed Tasks
+            button.supDec Supervision Decisions
+            button.upImg Upload Images
+          div.cuChart(ng-controller="chartCtrl")
 
       // log views webpage
       div.logViews
