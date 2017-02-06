@@ -6,7 +6,7 @@ from sqlalchemy.ext.declarative import declarative_base
 Base = declarative_base()
 engine = create_engine('postgresql://localhost/cmpe295')
 
-#SQL design
+#SQL schema
 class ImageMeta(Base):
 	"""
 	RDMS - table for image meta data
@@ -15,13 +15,16 @@ class ImageMeta(Base):
 	__tablename__ = 'imagemeta'
 	id = Column(Integer, primary_key = True)
 	path = Column(String(100), nullable = False)
-	preProcessed = Column(Boolean, nullable = False, default=False)
-	createDate = Column(DateTime)
+	preProcessed = Column(Boolean, nullable = False)
+	createDate = Column(DateTime, nullable = False)
+	preprocessedDate = Column(DateTime, nullable = True, default = None)
 
-	def __init__(self, path, preProcesed):
+	def __init__(self, path, preProcessed):
 		self.path = path
-		self.preProcesed = preProcesed
+		self.preProcessed = preProcessed
 		self.createDate = datetime.utcnow()
+		if self.preProcessed == True:
+			self.preprocessedDate = datetime.utcnow()
 
 class UserData(Base):
 	"""
@@ -38,3 +41,4 @@ class UserData(Base):
 		self.userName = userName
 		self.workType = workType
 		self.createDate = datetime.utcnow()
+

@@ -9,6 +9,7 @@ from models import Base
 from models import ImageMeta
 from models import UserData
 
+
 app = Flask(__name__)
 
 #web services API
@@ -27,8 +28,8 @@ Base.metadata.create_all(engine)
 Session = sessionmaker(bind=engine)
 session = Session()
 
-image1 = ImageMeta(path='abc/ccc', preProcesed = True)
-image2 = ImageMeta(path='abc/bbb', preProcesed = False)
+image1 = ImageMeta(path='abc/ccc', preProcessed = True)
+image2 = ImageMeta(path='abc/bbb', preProcessed = False)
 session.add(image1)
 session.add(image2)
 
@@ -48,6 +49,7 @@ for image in session.query(ImageMeta).all():
 	print("path", image.path)
 	print("preprocessed", image.preProcessed)
 	print("add date", image.createDate)
+	print("preprcessed date", image.preprocessedDate)
 
 for employee in session.query(UserData).all():
 	print("id", employee.id)
