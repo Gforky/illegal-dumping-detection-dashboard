@@ -5,21 +5,13 @@ html
     link(rel='stylesheet', href='/css/index.css')
     // load c3.css
     link(rel='stylesheet', href='/c3/c3.css', type='text/css')
-    // load angular js
+    //load angular js
     script(type='text/javascript', src='https://ajax.googleapis.com/ajax/libs/angularjs/1.5.8/angular.min.js')
-    // load jquery
+    //load jquery
     script(type='text/javascript', src='http://ajax.googleapis.com/ajax/libs/jquery/1.3.2/jquery.min.js')
-    // load c3.js and d3.js
+    //load c3.js and d3.js
     script(src='/d3/d3.min.js', charset='utf-8')
     script(src='/c3/c3.min.js')
-    // external js to generate charts
-    script(src='/js/chartGen.js')
-    // dropzone scripts
-    script(src='https://rawgit.com/enyo/dropzone/master/dist/dropzone.js')
-    link(rel='stylesheet', href='/css/basic.css')
-    link(rel='stylesheet', href='/css/dropzone.css')
-    // external script to dynamically change the neural network
-    script(src="/js/changeNet.js")
 
     // angularjs controllers
     script.
@@ -67,31 +59,6 @@ html
         // add the function to continously display the detected trash
       })
 
-      app.controller('todoController', ['$scope', '$interval', function($scope, $interval) {
-        // controller for to-do list of trash collections
-        $scope.tasks = [];
-        $scope.title = 'test';
-        $scope.add = function() {
-          $scope.tasks.push($scope.title);
-        }
-        $scope.delete = function() {
-          $scope.tasks.splice(this.$index, 1);
-        }
-
-        function updateTodoList() {
-          $scope.tasks.push($scope.title);
-        }
-
-        // set interval to continously update the list
-        var updateTime = $interval(updateTodoList, 1000);
-
-        /*element.on('$destroy', function() {
-          $interval.cancel(updateTime);
-        })*/
-      }])
-
-      app.directive()
-
     // js functions to dynamically read logs from back-end
     script.
       $(document).ready(function monitorTraining() {
@@ -119,7 +86,7 @@ html
           $("p.detectionLog").replaceWith("<p class='detectionLog'></p>")
         })
         // this function will repeatedly check the updates of logs
-        var checker = function() {
+        var checker = function(){
           $("p.trainingLog").append("This is a training output <br />")
           $("p.alertLog").append("This is a alert output <br />")
           $("p.detectionLog").append("This is a detection output <br />")
@@ -127,7 +94,7 @@ html
           $(".train").scrollTop($(".train")[0].scrollHeight)
           $(".alert").scrollTop($(".alert")[0].scrollHeight)
           $(".detection").scrollTop($(".detection")[0].scrollHeight)
-          //clearInternal(timer)
+          clearInternal(timer)
         }
         timer = setInterval(checker, 500)
       })
@@ -136,14 +103,98 @@ html
     script.
       var setVisibility = function(classNames) {
         document.getElementsByClassName(classNames[0])[0].style.display = "inline-block";
-        document.getElementsByClassName(classNames[0] + "Button")[0].style.backgroundColor = "#3ab795";
         for (index = 1; index < classNames.length; ++index) {
           document.getElementsByClassName(classNames[index])[0].style.display = "none";
-          document.getElementsByClassName(classNames[index] + "Button")[0].style.backgroundColor = "#008CBA";
         }
       }
 
     // c3 library charts
+    script.
+      $(document).ready(function() {
+      // chart of system status
+        var chart = c3.generate({
+          bindto: '.sysChart',
+          data: {
+            x : 'x',
+            columns: [
+              ['x', '2013-01-01', '2013-01-02', '2013-01-03', '2013-01-04', '2013-01-05', '2013-01-06'],
+              ['matrix', 0.55, 0.80, 0.70, 0.68, 0.98, 0.88],
+              ['sofa', 0.76, 0.85, 0.96, 0.97, 0.86, 0.78]
+            ]
+          },
+          axis: {
+            x: {
+              type: 'timeseries',
+              tick: {
+                  format: '%Y-%m-%d'
+              }
+            },
+            y: {
+              label: { // ADD
+                text: 'Average Precision',
+                position: 'outer-middle'
+              },
+              tick: {
+                format: d3.format(",%") // ADD
+              }
+            }
+          }
+        })
+
+      // chart of detection objects info
+        var chart = c3.generate({
+          bindto: '.objChart',
+          data: {
+            x : 'x',
+            columns: [
+              ['x', '2013-01-01', '2013-01-02', '2013-01-03', '2013-01-04', '2013-01-05', '2013-01-06'],
+              ['matrix', 0.55, 0.80, 0.70, 0.68, 0.98, 0.88],
+              ['sofa', 0.76, 0.85, 0.96, 0.97, 0.86, 0.78]
+            ]
+          },
+          axis: {
+            x: {
+              type: 'timeseries',
+              tick: {
+                  format: '%Y-%m-%d'
+              }
+            },
+            y: {
+              label: { // ADD
+                text: 'Average Precision',
+                position: 'outer-middle'
+              },
+              tick: {
+                format: d3.format(",%") // ADD
+              }
+            }
+          }
+        })
+
+        $(".AP").click(function() {
+          //chart.axis.ticks{x : {format: '%Y-%m-%d'}, y : {format: d3.format(",%")}}
+          chart.axis.labels({y : 'Average Precision'})
+        })
+
+        $(".cpuUsage").click(function() {
+          //chart.axis.ticks{x : {format: '%Y-%m-%d'}, y : {format: d3.format(",%")}}
+          chart.axis.labels({y : 'CPU Usage'})
+        })
+
+        $(".datasetSize").click(function() {
+          //chart.axis.ticks{x : {format: '%Y-%m-%d'}, y : {format: d3.format(",%")}}
+          chart.axis.labels({y : 'Dataset Size'})
+        })
+
+        $(".detectedObjects").click(function() {
+          //chart.axis.ticks{x : {format: '%Y-%m-%d'}, y : {format: d3.format(",%")}}
+          chart.axis.labels({y : 'Detected Objects'})
+        })
+
+        document.getElementsByClassName("dataViews")[0].style.display = "none";
+      })
+
+
 
 
   title Illegal Dumping Detection Dashboard
@@ -152,81 +203,28 @@ html
       h1.page-title Illegal Dumping Detection System Dashboard
 
     div.switchGridButtons
-      button.sysOpsButton(onclick='setVisibility(["sysOps", "dataViews", "logViews"])') System Operations
-      button.dataViewsButton(onclick='setVisibility(["dataViews", "logViews", "sysOps"])') Data Virtualization
-      button.logViewsButton(onclick='setVisibility(["logViews", "dataViews", "sysOps"])') Log Views
+      button(onclick='setVisibility(["sysOps", "dataViews", "logViews"])') System Operations
+      button(onclick='setVisibility(["dataViews", "logViews", "sysOps"])') Data Virtualization
+      button(onclick='setVisibility(["logViews", "dataViews", "sysOps"])') Log Views
 
     div(ng-app="dashboard")
 
-      // system opertations webpage
-      div.sysOps
+      // log views webpage
+      div.logViews
         div.left-half
           div.left-half-1
-            div.upload-files
-              form.dropzone.dz-clickable(action='/upload-files')
-                 div.dz-message Drop files here or click to upload.
-                    br
-                    span.note (This is just a demo dropzone. Selected files are <strong>not</strong> actually uploaded.)
+            div.input
+              p input
             div.search-model
               div.search(ng-controller="searchCtrl")
                 input(type="text", ng-model="imgName")
                 button(ng-click="searchButton()") Search Image
               div.model(ng-controller="modelCtrl")
                 ul.nav
-                  li: button.VGG16(ng-click="VGG16()") VGG16
-                  li: button.ZF(ng-click="ZF()") ZF
-                  li: button.VGG_CNN_M_1024(ng-click="VGG_CNN_M_1024()") VGG_CNN_M_1024
+                  li: button(ng-click="VGG16()") VGG16
+                  li: button(ng-click="ZF()") ZF
+                  li: button(ng-click="VGG_CNN_M_1024()") VGG_CNN_M_1024
                 p Current Network: {{networkName}}
-          div.left-half-2
-            div.todo-list(ng-controller='todoController')
-              form(ng-submit='add()')
-                input(ng-model='title')
-                button Add
-              ul
-                li(ng-repeat='t in tasks track by $index'): button(ng-click='delete()') {{ t }} 
-
-        div.right-half
-          iframe.detectLocations(src="https://www.google.com/maps/embed/v1/place?key=AIzaSyB-denz3OyVbLzOvKpehCzSLJzNohqAebo &q=Space+Needle,Seattle+WA" allowfullscreen)
-
-      // data virtualization webpage
-      div.dataViews
-        div.sysStat
-          h2 System Status
-          div.chartButtons
-            button.cpuUsage CPU Usage
-            button.memLoad Memory Load
-            button.netTraff Network Traffic
-            button.cpuTemp CPU Temprature
-          div.sysChart(ng-controller="chartCtrl")
-
-        div.dbStat
-          h2 Database Status
-          div.chartButtons
-            button.imgStorage Image Storage
-            button.dbIO I/O Traffic
-            button.dbQuery Database Queries
-          div.dbChart(ng-controller="chartCtrl")
-
-        div.nnStat
-          h2 Neural Network Status
-          div.chartButtons
-            button.AP Average Precisions
-            button.datasetSize Dataset Size
-            button.detectedObjects Detected Objects
-          div.nnChart(ng-controller="chartCtrl")
-
-        div.cuStat
-          h2 Client Usage Status
-          div.chartButtons
-            button.completedTasks Completed Tasks
-            button.supDec Supervision Decisions
-            button.upImg Upload Images
-          div.cuChart(ng-controller="chartCtrl")
-
-      // log views webpage
-      div.logViews
-        div.left-half
-          div.left-half-1
           div.left-half-2
             div.logButtons
               button.alertLogRefresh Manually refresh log
@@ -245,6 +243,43 @@ html
             button.trainingLogReset Reset Log
           div.train(ng-controller="trainCtrl")
             p.trainingLog
+
+      // data virtualization webpage
+      div.dataViews
+        p Data Virtualization
+        div.chartButtons
+          button.AP Average Precisions
+          button.cpuUsage CPU Usage
+          button.datasetSize Dataset Size
+          button.detectedObjects Detected Objects
+        div.sysChart(ng-controller="chartCtrl")
+
+        div.chartButtons
+          button.AP Average Precisions
+          button.cpuUsage CPU Usage
+          button.datasetSize Dataset Size
+          button.detectedObjects Detected Objects
+        div.objChart(ng-controller="chartCtrl")
+
+      // system opertations webpage
+      div.sysOps
+        p System Operations
+        div.left-half
+          div.left-half-1
+            div.input
+              p input
+            div.search-model
+              div.search(ng-controller="searchCtrl")
+                input(type="text", ng-model="imgName")
+                button(ng-click="searchButton()") Search Image
+              div.model(ng-controller="modelCtrl")
+                ul.nav
+                  li: button(ng-click="VGG16()") VGG16
+                  li: button(ng-click="ZF()") ZF
+                  li: button(ng-click="VGG_CNN_M_1024()") VGG_CNN_M_1024
+                p Current Network: {{networkName}}
+        div.right-half
+          iframe.detectLocations(src="https://www.google.com/maps/embed/v1/place?key=AIzaSyB-denz3OyVbLzOvKpehCzSLJzNohqAebo &q=Space+Needle,Seattle+WA" allowfullscreen)
 
     .footer
       p Copyright © 2016 Wendy Boo, Alan Chen, Luwen Miao, Xiaoming Chuang

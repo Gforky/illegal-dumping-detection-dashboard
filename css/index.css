@@ -1,0 +1,144 @@
+@import url("https://fonts.googleapis.com/css?family=Source+Code+Pro:400,200,700");
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+body {
+  font-family: 'Source Code Pro', monospace;
+}
+.header {
+  background-color: #008CBA;
+  background-position: center;
+}
+.header .page-title {
+  font-weight: 200;
+  font-size: 20px;
+  text-align: center;
+  padding: 20px;
+  text-transform: uppercase;
+  color: #fff;
+}
+.nav {
+  background: #000;
+  text-align: center;
+}
+.nav li {
+  display: inline-block;
+}
+.nav button {
+  display: inline-block;
+  padding: 5px;
+  background-color: #008CBA;
+  color: white;
+  text-decoration: none;
+}
+.nav button:hover {
+  background-color: #3ab795;
+  text-decoration: underline;
+}
+.main-content {
+  margin: 50px auto;
+  max-width: 600px;
+}
+.main-content p {
+  line-height: 1.6;
+  margin-bottom: 1.7em;
+}
+.footer {
+  margin: 50px auto;
+  max-width: 600px;
+  border-top: 1px solid #444;
+  padding: 20px 0;
+}
+.footer p {
+  color: #444;
+  font-size: 12px;
+}
+
+.logViews {
+  display: none;
+  padding:25px;
+  width: 100%;
+  height: 600px;
+}
+
+.dataViews {
+  padding:25px;
+  width: 100%;
+}
+
+.sysOps {
+  display: block;
+  padding:25px;
+  width: 100%;
+  height: 600px;
+}
+
+.left-half, 
+.right-half {
+  float:left;
+  width:50%;
+  height:100%;
+}
+
+.left-half-1 {
+  height:30%;
+}
+
+.left-half-2 {
+  height:70%;
+}
+
+.input {
+  float:left;
+  width:50%;
+  height:100%;
+}
+
+.search-model {
+  float:left;
+  width:50%;
+  height:100%;
+}
+
+.search,
+.model {
+  height:50%;
+}
+
+.alert,
+.train,
+.detection {
+  display: block;
+  height:45%;
+  overflow: scroll;
+}
+
+.AP,
+.cpuUsage,
+.datasetSize,
+.detectedObjects {
+  display: inline-block;
+  background-color: #008CBA;
+  color: white;
+  height:100%;
+  width:25%;
+  text-decoration: none;
+}
+
+.AP:hover,
+.cpuUsage:hover,
+.datasetSize:hover,
+.detectedObjects:hover {
+  background-color: #3ab795;
+  text-decoration: underline;
+}
+
+.detectLocations {
+  width: 100%;
+  height: 100%;
+  frameborder: 0px;
+  border: 0px;
+  padding-left: 5%;
+} 

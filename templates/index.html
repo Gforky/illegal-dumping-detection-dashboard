@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <!-- load c3.css-->
+    <link rel="stylesheet" href="{{ url_for('static', filename='c3.css') }}">
+    <!-- load angular js-->
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.8/angular.min.js"></script>
+    <!-- load jquery-->
+    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.3.2/jquery.min.js"></script>
+    <!-- load c3.js and d3.js-->
+    <script src="{{ url_for('static', filename='d3.js') }}"></script>
+    <script src="{{ url_for('static', filename='c3.js') }}"></script>
+    <!-- external js to generate charts-->
+    <script src="{{ url_for('static', filename='chartGen.js') }}"></script>
+    <!-- dropzone scripts-->
+    <script src="https://rawgit.com/enyo/dropzone/master/dist/dropzone.js"></script>
+    <link rel="stylesheet" href="{{ url_for('static', filename='basic.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='dropzone.css') }}">
+    <!-- external script to dynamically change the neural network-->
+    <script src="{{ url_for('static', filename='chartGen.js') }}"></script>
+    <!-- angularjs controllers-->
+    <script>
+      var app = angular.module('dashboard', [])
+      app.controller('trainCtrl', function($scope) {
+        // add the function to dynamically display the cnn traning process outputs
+      })
+      app.controller('chartCtrl', function($scope) {
+        // add the function to dynamically read the AP data from back-end
+      })
+      app.controller('inputCtrl', function($scope) {
+        // add the function to handle the input data, including images, labels, etc.
+      })
+      app.controller('searchCtrl', function($scope) {
+        $scope.searchButton = function() {
+          // add the function for image search
+        }
+      })
+      app.controller('modelCtrl', function($scope) {
+        // add the function to change the network correspondingly
+        $scope.VGG16 = function() {
+          $scope.networkName='VGG16'
+        }
+        $scope.ZF = function() {
+          $scope.networkName='ZF'
+        }
+        $scope.VGG_CNN_M_1024 = function() {
+          $scope.networkName='VGG_CNN_M_1024'
+        }
+      })
+      app.controller('alertCtrl', function($scope) {
+        // add the function to continously display the alters for detected illegal dumping
+      })
+      app.controller('objectDetectionCtrl', function($scope) {
+        // add the function to continously display the detected trash
+      })
+      app.controller('todoController', ['$scope', '$interval', function($scope, $interval) {
+        // controller for to-do list of trash collections
+        $scope.tasks = [];
+        $scope.title = 'test';
+        $scope.add = function() {
+          $scope.tasks.push($scope.title);
+        }
+        $scope.delete = function() {
+          $scope.tasks.splice(this.$index, 1);
+        }
+        function updateTodoList() {
+          $scope.tasks.push($scope.title);
+        }
+        // set interval to continously update the list
+        // var updateTime = $interval(updateTodoList, 1000);
+        /*element.on('$destroy', function() {
+          $interval.cancel(updateTime);
+        })*/
+      }])
+      app.directive()
+    </script>
+    <!-- js functions to dynamically read logs from back-end-->
+   <script>
+      $(document).ready(function monitorTraining() {
+        $(".trainingLogRefresh").click(function() {
+          for(i = 0; i < 10; ++i)
+          $("p.trainingLog").append("This is a training output" + i + "<br />")
+        })
+        $(".trainingLogReset").click(function() {
+          $("p.trainingLog").replaceWith("<p class='trainingLog'></p>")
+        })
+        $(".alertLogRefresh").click(function() {
+          for(i = 0; i < 10; ++i)
+          $("p.alertLog").append("This is a alert output" + i + "<br />")
+        })
+        $(".alertLogReset").click(function() {
+          $("p.alertLog").replaceWith("<p class='alertLog'></p>")
+        })
+        $(".detectionLogRefresh").click(function() {
+          for(i = 0; i < 10; ++i)
+          $("p.detectionLog").append("This is a detection output" + i + "<br />")
+        })
+        $(".detectionLogReset").click(function() {
+          $("p.detectionLog").replaceWith("<p class='detectionLog'></p>")
+        })
+        // this function will repeatedly check the updates of logs
+        var checker = function() {
+          $("p.trainingLog").append("This is a training output <br />")
+          $("p.alertLog").append("This is a alert output <br />")
+          $("p.detectionLog").append("This is a detection output <br />")
+          // jquery function to automatically scroll down to bottom of div
+          $(".train").scrollTop($(".train")[0].scrollHeight)
+          $(".alert").scrollTop($(".alert")[0].scrollHeight)
+          $(".detection").scrollTop($(".detection")[0].scrollHeight)
+          //clearInternal(timer)
+        }
+        timer = setInterval(checker, 500)
+      })
+    </script>
+    <!-- js function to dynamically set display parameter of div-->
+    <script>
+      var setVisibility = function(classNames) {
+        document.getElementsByClassName(classNames[0])[0].style.display = "inline-block";
+        document.getElementsByClassName(classNames[0] + "Button")[0].style.backgroundColor = "#3ab795";
+        for (index = 1; index < classNames.length; ++index) {
+          document.getElementsByClassName(classNames[index])[0].style.display = "none";
+          document.getElementsByClassName(classNames[index] + "Button")[0].style.backgroundColor = "#008CBA";
+        }
+      }
+    </script>
+    <!-- c3 library charts-->
+  </head>
+  <title>Illegal Dumping Detection Dashboard</title>
+  <body>
+    <div class="header">
+      <h1 class="page-title">Illegal Dumping Detection System Dashboard</h1>
+    </div>
+    <div class="switchGridButtons">
+      <button onclick="setVisibility([&quot;sysOps&quot;, &quot;dataViews&quot;, &quot;logViews&quot;])" class="sysOpsButton">System Operations</button>
+      <button onclick="setVisibility([&quot;dataViews&quot;, &quot;logViews&quot;, &quot;sysOps&quot;])" class="dataViewsButton">Data Virtualization</button>
+      <button onclick="setVisibility([&quot;logViews&quot;, &quot;dataViews&quot;, &quot;sysOps&quot;])" class="logViewsButton">Log Views</button>
+    </div>
+    <div ng-app="dashboard">
+      <!-- system opertations webpage-->
+      <div class="sysOps">
+        <div class="left-half">
+          <div class="left-half-1">
+            <div class="upload-files">
+              <form action="/upload-files" class="dropzone dz-clickable">
+                <div class="dz-message">Drop files here or click to upload.<br><span class="note">(This is just a demo dropzone. Selected files are <strong>not</strong> actually uploaded.)</span></div>
+              </form>
+            </div>
+            <div class="search-model">
+              <div ng-controller="searchCtrl" class="search">
+                <input type="text" ng-model="imgName">
+                <button ng-click="searchButton()">Search Image</button>
+              </div>
+              <div ng-controller="modelCtrl" class="model">
+                <ul class="nav">
+                  <li>
+                    <button ng-click="VGG16()" class="VGG16">VGG16</button>
+                  </li>
+                  <li>
+                    <button ng-click="ZF()" class="ZF">ZF</button>
+                  </li>
+                  <li>
+                    <button ng-click="VGG_CNN_M_1024()" class="VGG_CNN_M_1024">VGG_CNN_M_1024</button>
+                  </li>
+                </ul>
+                <p>Current Network: {{networkName}}</p>
+              </div>
+            </div>
+          </div>
+          <div class="left-half-2">
+            <div ng-controller="todoController" class="todo-list">
+              <form ng-submit="add()">
+                <input ng-model="title">
+                <button>Add</button>
+              </form>
+              <ul>
+                <li ng-repeat="t in tasks track by $index">
+                  <button ng-click="delete()">{{ t }} </button>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        <div class="right-half">
+          <iframe src="https://www.google.com/maps/embed/v1/place?key=AIzaSyB-denz3OyVbLzOvKpehCzSLJzNohqAebo &amp;q=Space+Needle,Seattle+WA" allowfullscreen class="detectLocations"></iframe>
+        </div>
+      </div>
+      <!-- data virtualization webpage-->
+      <div class="dataViews">
+        <div class="sysStat">
+          <h2>System Status</h2>
+          <div class="chartButtons">
+            <button class="cpuUsage">CPU Usage</button>
+            <button class="memLoad">Memory Load</button>
+            <button class="netTraff">Network Traffic</button>
+            <button class="cpuTemp">CPU Temprature</button>
+          </div>
+          <div ng-controller="chartCtrl" class="sysChart"></div>
+        </div>
+        <div class="dbStat">
+          <h2>Database Status</h2>
+          <div class="chartButtons">
+            <button class="imgStorage">Image Storage</button>
+            <button class="dbIO">I/O Traffic</button>
+            <button class="dbQuery">Database Queries</button>
+          </div>
+          <div ng-controller="chartCtrl" class="dbChart"></div>
+        </div>
+        <div class="nnStat">
+          <h2>Neural Network Status</h2>
+          <div class="chartButtons">
+            <button class="AP">Average Precisions</button>
+            <button class="datasetSize">Dataset Size</button>
+            <button class="detectedObjects">Detected Objects</button>
+          </div>
+          <div ng-controller="chartCtrl" class="nnChart"></div>
+        </div>
+        <div class="cuStat">
+          <h2>Client Usage Status</h2>
+          <div class="chartButtons">
+            <button class="completedTasks">Completed Tasks</button>
+            <button class="supDec">Supervision Decisions</button>
+            <button class="upImg">Upload Images</button>
+          </div>
+          <div ng-controller="chartCtrl" class="cuChart"></div>
+        </div>
+      </div>
+      <!-- log views webpage-->
+      <div class="logViews">
+        <div class="left-half">
+          <div class="left-half-1"></div>
+          <div class="left-half-2">
+            <div class="logButtons">
+              <button class="alertLogRefresh">Manually refresh log</button>
+              <button class="alertLogReset">Reset Log</button>
+            </div>
+            <div class="alert">
+              <p class="alertLog"></p>
+            </div>
+            <div class="logButtons">
+              <button class="detectionLogRefresh">Manually refresh log</button>
+              <button class="detectionLogReset">Reset Log</button>
+            </div>
+            <div class="detection">
+              <p class="detectionLog"></p>
+            </div>
+          </div>
+        </div>
+        <div class="right-half">
+          <div class="logButtons">
+            <button class="trainingLogRefresh">Manually refresh log</button>
+            <button class="trainingLogReset">Reset Log</button>
+          </div>
+          <div ng-controller="trainCtrl" class="train">
+            <p class="trainingLog"></p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="footer">
+      <p>Copyright © 2016 Wendy Boo, Alan Chen, Luwen Miao, Xiaoming Chuang</p>
+    </div>
+  </body>
+</html>
