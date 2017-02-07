@@ -232,4 +232,5 @@ $(document).ready(function() {
   })
 
   document.getElementsByClassName("dataViews")[0].style.display = "none";
+  document.getElementsByClassName("sysOpsButton")[0].style.backgroundColor = "#3ab795";
 })
