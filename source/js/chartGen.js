@@ -233,4 +233,8 @@ $(document).ready(function() {
 
   document.getElementsByClassName("dataViews")[0].style.display = "none";
   document.getElementsByClassName("sysOpsButton")[0].style.backgroundColor = "#3ab795";
+  document.getElementsByClassName("cpuUsage")[0].style.backgroundColor = "#3ab795";
+  document.getElementsByClassName("imgStorage")[0].style.backgroundColor = "#3ab795";
+  document.getElementsByClassName("AP")[0].style.backgroundColor = "#3ab795";
+  document.getElementsByClassName("completedTasks")[0].style.backgroundColor = "#3ab795";
 })
